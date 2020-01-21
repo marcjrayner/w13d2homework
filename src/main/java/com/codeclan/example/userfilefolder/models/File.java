@@ -5,14 +5,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "files")
+@Table(name = "my_files")
 public class File {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
-    private String name;
+    private String fileName;
 
     @Column(name = "extension")
     private String extension;
@@ -20,16 +21,13 @@ public class File {
     @Column(name = "size")
     private int size;
 
-    @JsonIgnoreProperties
-    @ManyToOne
-    @JoinColumn(name = "folder_id", nullable = false)
-    private Folder folder;
-
-    public File(String name, String extension, int size) {
-        this.name = name;
+    public File(String fileName, String extension, int size) {
+        this.fileName = fileName;
         this.extension = extension;
         this.size = size;
     }
+
+    public File() {}
 
     public Long getId() {
         return id;
@@ -39,12 +37,12 @@ public class File {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String fileName) {
+        this.fileName = fileName;
     }
 
     public String getExtension() {
