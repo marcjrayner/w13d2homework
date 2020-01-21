@@ -22,9 +22,15 @@ import java.util.List;
         @OneToMany(mappedBy = "folder")
         private List<File> files;
 
-        public Folder(String name) {
+        @JsonIgnoreProperties("folders")
+        @ManyToOne
+        @JoinColumn(name = "user_id", nullable = false)
+        private User user;
+
+        public Folder(String name, User user) {
             this.name = name;
             this.files = new ArrayList<>();
+            this.user = user;
         }
 
         public Folder() {
@@ -52,6 +58,14 @@ import java.util.List;
 
         public void setId(Long id) {
             this.id = id;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
         }
     }
 
