@@ -21,10 +21,16 @@ public class File {
     @Column(name = "size")
     private int size;
 
-    public File(String fileName, String extension, int size) {
+    @JsonIgnoreProperties("files")
+    @ManyToOne
+    @JoinColumn(name = "folder_id", nullable = false)
+    private Folder folder;
+
+    public File(String fileName, String extension, int size, Folder folder) {
         this.fileName = fileName;
         this.extension = extension;
         this.size = size;
+        this.folder = folder;
     }
 
     public File() {}
